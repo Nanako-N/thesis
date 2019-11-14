@@ -37,9 +37,8 @@ def FileRead(t):
 
 NumberOfPeople = ((2,2),(3,3),(4,4),(5,5),)
 DESTINATION = ((True,'あり'),(False,'なし'),)
+Exit = FileRead("static/exit.txt");
 Landmark = FileRead("landmark.txt");
-Exit = FileRead("exit.txt");
-
 
 class Group(models.Model):
     people = models.IntegerField(choices=NumberOfPeople)
