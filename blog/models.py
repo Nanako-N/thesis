@@ -38,8 +38,8 @@ def FileRead(t):
 
 NumberOfPeople = ((2,2),(3,3),(4,4),(5,5),)
 DESTINATION = ((True,'あり'),(False,'なし'),)
-Exit = FileRead("exit.txt")
-Landmark = FileRead("landmark.txt")
+Exit = FileRead("nanako.pythonanywhere.com/exit.txt")
+Landmark = FileRead("nanako.pythonanywhere.com/landmark.txt")
 
 class Group(models.Model):
     people = models.IntegerField(choices=NumberOfPeople)
@@ -58,7 +58,7 @@ class Group(models.Model):
    minute (char) : 到着分
 """
 
-Route = FileRead("route.txt");
+Route = FileRead("nanako.pythonanywhere.com/route.txt");
 class Route(models.Model):
     number = models.CharField(max_length=100)
     route = models.IntegerField(choices=Route)

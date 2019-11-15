@@ -2,6 +2,7 @@
     地図上に最適な目的地、周辺情報を表示するページ
   -->
 {% extends 'blog/base.html' %}
+{% load static %}
 
 {% block content %}
 <p>
@@ -42,7 +43,7 @@
   L.marker([0,0], {title: "[0,0]"}).bindPopup("[0,0]").addTo(map);
 
   //地図を表示。(画像がある場所のパスを指定しています。この通りでないと表示できないので注意。)
-  L.tileLayer("../static/nodemap/{z}/{x}/{y}.png", {
+  L.tileLayer("{% static nodemap/{z}/{x}/{y}.png %}", {
   attribution: "<a>自作タイル</a>"
   }).addTo(map);
 
