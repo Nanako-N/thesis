@@ -47,6 +47,7 @@ def map(request, pk):
     group = get_object_or_404(Group, pk=pk)
     routes = Route.objects.filter(number=pk)
     cafes = Cafe.objects.all()
+    len = routes.count()
     dest = False #目的地の有無
     mark = 0 #ランドマークor出口のノード番号
     if group.destination:
@@ -56,7 +57,7 @@ def map(request, pk):
         else:
             mark = group.exitmark
     meet = Run([220, 217], mark, dest) #待ち合わせの最適解
-    return render(request, 'blog/map.html', {'group': group, 'routes': routes, 'meet': meet, 'cafes': cafes})
+    return render(request, 'blog/map.html', {'group': group, 'routes': routes, 'meet': meet, 'cafes': cafes, 'len': len})
 
 
 
