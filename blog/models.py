@@ -38,8 +38,8 @@ def FileRead(t):
 
 NumberOfPeople = ((2,2),(3,3),(4,4),(5,5),)
 DESTINATION = ((True,'あり'),(False,'なし'),)
-Exit = FileRead("static/exit.css")
-Landmark = FileRead("static/landmark.css")
+Exit = FileRead("/static/exit.css")
+Landmark = FileRead("/static/landmark.css")
 
 class Group(models.Model):
     people = models.IntegerField(choices=NumberOfPeople)
@@ -58,7 +58,7 @@ class Group(models.Model):
    minute (char) : 到着分
 """
 
-Route = FileRead("static/route.css");
+Route = FileRead("/static/route.css");
 class Route(models.Model):
     number = models.CharField(max_length=100)
     route = models.IntegerField(choices=Route)
