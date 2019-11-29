@@ -50,13 +50,15 @@ def map(request, pk):
     len = routes.count()
     dest = False #目的地の有無
     mark = 0 #ランドマークor出口のノード番号
+    meet = [-100, -100, -100]
     if group.destination:
         dest = True
         if group.landmark != -1:
             mark = group.landmark
         else:
             mark = group.exitmark
-    meet = Run([220, 217], mark, dest) #待ち合わせの最適解
+    if len == group.people:
+        meet = Run([220, 217], mark, dest) #待ち合わせの最適解
     return render(request, 'blog/map.html', {'group': group, 'routes': routes, 'meet': meet, 'len': len})
 
 
