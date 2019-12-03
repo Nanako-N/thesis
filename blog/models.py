@@ -38,7 +38,8 @@ def FileRead(t):
 
 NumberOfPeople = ((2,2),(3,3),(4,4),(5,5),)
 DESTINATION = ((True,'あり'),(False,'なし'),)
-Exit = FileRead("/home/nanako/nanako.pythonanywhere.com/exit.txt")
+Exit = FileRead("exit.txt")
+#Exit = FileRead("/home/nanako/nanako.pythonanywhere.com/exit.txt")
 Landmark = FileRead("/home/nanako/nanako.pythonanywhere.com/landmark.txt")
 
 class Group(models.Model):
