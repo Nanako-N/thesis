@@ -28,7 +28,7 @@
 
 
 
-<div id="mapcontainer" style="width:600px;height:600px"></div>
+<div id="mapcontainer" style="width:800px;height:1000px"></div>
 <script>
 
 /*----------地図表示---------*/
@@ -40,7 +40,7 @@
 
   //地図の中心座標とズームレベルを指定。
   //0が最小、2が最大ズーム
-  map.setView(L.latLng(-256/2, 256/2), 0);
+  map.setView(L.latLng(-700/2, 700/2), 0);
 
   //地図に表示するマーカー
   var imgsrc = "<img src='{% static 'img/' %}seira.jpg' width='120' height='150'>";
@@ -51,6 +51,7 @@
 
   //地図を表示。(画像がある場所のパスを指定しています。この通りでないと表示できないので注意。)
   tile = L.tileLayer("{% static 'nodemap2' %}" + "/map/{z}/{x}/{y}.png", {
+    tileSize: 700,
   attribution: "<a>自作タイル</a>",
   }).addTo(map);
 
