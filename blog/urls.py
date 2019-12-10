@@ -6,4 +6,5 @@ urlpatterns = [
     path('select/', views.select, name='select'),
     path('map/<int:pk>', views.map, name='map'),
     path('add/<int:pk>', views.add_route, name='add_route'),
+    path('add/<int:pk>', views.change_route, name='change_route')
 ]

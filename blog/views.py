@@ -78,3 +78,12 @@ def add_route(request, pk):
     else:
         form = RouteForm()
     return render(request, 'blog/add_route.html', {'form': form})
+
+
+
+"""
+mapページの路線変更ボタンを押した時
+"""
+def change_route(request, group_num, pk):
+    Route.objects.filter(pk = pk).delete()
+    return redirect('add_route', pk=group_num)
