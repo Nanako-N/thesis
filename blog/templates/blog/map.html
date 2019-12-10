@@ -51,7 +51,7 @@
 
   //地図を表示。(画像がある場所のパスを指定しています。この通りでないと表示できないので注意。)
   tile = L.tileLayer("{% static 'nodemap2' %}" + "/map/{z}/{x}/{y}.png", {
-    tileSize: 800,
+    tileSize: 1000,
   attribution: "<a>自作タイル</a>",
   }).addTo(map);
 
