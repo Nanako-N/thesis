@@ -23,9 +23,11 @@
 
 <p>
   <button type="button" onclick="changeLayer('/map')">ノードマップ</button>
-  <button type="button" onclick="changeLayer('/1F2')">1F</button>
+  <button type="button" onclick="changeLayer('/1F')">1F</button>
+  <button type="button" onclick="changeLayer('/B1')">B1</button>
+  <button type="button">B2</button>
+  <button type="button">B3</button>
 </p>
-
 
 
 <div id="mapcontainer" style="width:900px;height:1000px"></div>
@@ -40,7 +42,7 @@
 
   //地図の中心座標とズームレベルを指定。
   //0が最小、2が最大ズーム
-  map.setView(L.latLng(-800/2, 800/2), 0);
+  map.setView(L.latLng(-1000/2, 1000/2), 0);
 
   //地図に表示するマーカー
   var imgsrc = "<img src='{% static 'img/' %}seira.jpg' width='120' height='150'>";
