@@ -46,8 +46,10 @@ Landmark = FileRead("/home/nanako/nanako.pythonanywhere.com/landmark.txt")
 class Group(models.Model):
     people = models.IntegerField(choices=NumberOfPeople)
     destination = models.BooleanField(choices=DESTINATION, default=False)
+#文字を格納する
     landmark = models.IntegerField(choices=Landmark,default=0)
     exitmark = models.IntegerField(choices=Exit,default=0)
+
 
     def __str__(self):
         return str(self.pk)
@@ -56,8 +58,6 @@ class Group(models.Model):
 個人が利用する路線、時間の情報
    number (int) : グループ番号
    route (char) : 駅到着時の路線
-   hour (char) : 到着時
-   minute (char) : 到着分
 """
 
 #Route = FileRead("route.txt")

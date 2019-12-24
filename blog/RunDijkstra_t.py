@@ -1,15 +1,13 @@
-
-# -*- coding: utf-8 -*-
 import numpy as np
-from .Dijkstra_t3 import answer
+from .Dijkstra_omomi4_d import answer
 
 """
    地図ファイルを読み込むメソッド
 """
 def FileRead():
     #ファイルを読み込む
-    #file_data = open("shinjukuroute.txt", "r")
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/shinjukuroute.txt", "r")
+    file_data = open("newroute.txt", "r")
+    file_data = open("/home/nanako/nanako.pythonanywhere.com/newroute.txt", "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
     for line in file_data:
@@ -43,11 +41,8 @@ def FileRead():
 """
 def Run(src, dst, dest):
     route_map, nTown = FileRead()
-    meet = answer(route_map, nTown, src, dst, dest)
-    print(meet)
-    list = src
-    list.insert(0,meet)
-    print(list)
-    return list
+    meet, kaisatu= answer(route_map, nTown, src, dst, dest)
+    print("meet: "+str(meet)+" usedkaisatu: "+str(kaisatu))
+    return(meet, kaisatu)
 
-#Run([220, 217], 32, False)
+#Run([4,3,0],113, False)
