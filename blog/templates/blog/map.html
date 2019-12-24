@@ -279,7 +279,7 @@
 
   function getCSV(){
       var req = new XMLHttpRequest(); // HTTPでファイルを読み込むためのXMLHttpRrequestオブジェクトを生成
-      req.open("get", "{% static 'nodemap2' %}" + "/node_RKM.csv", true); // アクセスするファイルを指定
+      req.open("get", "{% static 'nodemap2' %}" + "/nodenumber.csv", true); // アクセスするファイルを指定
       req.send(null); // HTTPリクエストの発行
 
       // レスポンスが返ってきたらconvertCSVtoArray()を呼ぶ
