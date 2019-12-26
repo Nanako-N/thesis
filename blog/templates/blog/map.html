@@ -20,7 +20,7 @@
   路線: {{ r }} <br>
   {% endfor %}
 </p>
-
+<!---
 <table width="800">
      <tr>
          <th><p class="maru1"></p>:西武新宿駅</th> 　　　
@@ -43,15 +43,31 @@
          <th><p class="maru12"></p>:小田急線　新宿駅</th>
      </tr>
  </table>
- <br>
+ <br> --->
 
-<img src="{% static "img/gate.png"%}"/ style="padding-bottom: 2px">:改札　　
-<img src="{% static "img/stairs.png"%}"/ style="padding-bottom: 2px"> :階段　　
-<img src="{% static "img/escalator.png"%}"/ style="padding-bottom: 2px"> :エスカレーター　
-<img src="{% static "img/elevator.png"%}"/ style="padding-bottom: 2px"> :エレベーター　
-<img src="{% static "img/police.png"%}"/ style="padding-bottom: 2px"> :警察　
+<p class="maru"><span>1</span></p>: 西武新宿駅　　　　　　
+<p class="maru"><span>2</span></p>: 都営大江戸線　新宿西口駅　
+<p class="maru"><span>3</span></p>: 都営大江戸線　新宿駅<br><br>
+<p class="maru"><span>4</span></p>: 副都心線　新宿三丁目駅
+<p class="maru"><span>5</span></p>: 丸ノ内線　新宿駅　　　　　
+<p class="maru"><span>6</span></p>: 丸ノ内線　新宿三丁目駅<br><br>
+<p class="maru"><span>7</span></p>: 都営新宿線　新宿駅　　
+<p class="maru"><span>8</span></p>: 都営新宿線　新宿三丁目駅　
+<p class="maru"><span>9</span></p>: JR線　新宿駅<br><br>
+<p class="maru"><span>10</span></p>: 京王線　新宿駅　　　　
+<p class="maru"><span>11</span></p>: 京王新線　新宿駅　　　　　
+<p class="maru"><span>12</span></p>: 小田急線　新宿駅<br><br>
+
+
+
+
+<img src="{% static "img/icon/gate.png"%}"/ style="padding-bottom: 2px">:改札　　
+<img src="{% static "img/icon/stairs.png"%}"/ style="padding-bottom: 2px"> :階段　　
+<img src="{% static "img/icon/escalator.png"%}"/ style="padding-bottom: 2px"> :エスカレーター　
+<img src="{% static "img/icon/elevator.png"%}"/ style="padding-bottom: 2px"> :エレベーター　
+<img src="{% static "img/icon/police.png"%}"/ style="padding-bottom: 2px"> :警察　
 <br><br>
-
+<!---
 <style>
   .maru1{
    vertical-align: bottom;
@@ -166,6 +182,27 @@
   display: inline-block;
   vertical-align: bottom;
 </style>
+--->
+
+<style>
+  .maru{
+   text-align:center;
+   line-height: 22px;
+   font-weight:bold;
+   vertical-align: middle;
+   display: inline-block;
+   border-radius: 22px;
+   margin: 4px;
+   width: 22px;
+   height: 22px;
+   background-color:  #F6C03E;
+  }
+  .line{
+  display: inline-block;
+  vertical-align: bottom;
+
+</style>
+
 
 <p>
   <button type="button" onclick="changeMeetPoint(1)" style="width:100px;height:80px"><font size="5">案1</font></button>
