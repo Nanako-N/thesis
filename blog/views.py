@@ -61,8 +61,8 @@ startrout.txtを読み込む
 """
 def GateFileRead():
     #ファイルを読み込む
-    #file_data = open("/home/nanako/nanako.pythonanywhere.com/startroute.txt", "r")
-    file_data = open("startroute.txt", "r")
+    file_data = open("/home/nanako/nanako.pythonanywhere.com/startroute.txt", "r")
+    #file_data = open("startroute.txt", "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
     StationSize = []
@@ -82,8 +82,8 @@ def GateFileRead():
 """
 def point(meet_node):
     #ファイルを読み込む
-    #file_data = open("/home/nanako/nanako.pythonanywhere.com/point.txt", "r")
-    file_data = open("point.txt", "r")
+    file_data = open("/home/nanako/nanako.pythonanywhere.com/point.txt", "r")
+    #file_data = open("point.txt", "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
     MeetToPoint = []
