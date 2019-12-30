@@ -40,6 +40,7 @@ def select(request):
 
 def FileRead(t):
     #ファイルを読み込む
+    #file_data = open("/home/nanako/nanako.pythonanywhere.com/" + t, "r")
     file_data = open(t, "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
@@ -60,7 +61,8 @@ startrout.txtを読み込む
 """
 def GateFileRead():
     #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/startroute.txt", "r")
+    #file_data = open("/home/nanako/nanako.pythonanywhere.com/startroute.txt", "r")
+    file_data = open("startroute.txt", "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
     StationSize = []
@@ -80,7 +82,8 @@ def GateFileRead():
 """
 def point(meet_node):
     #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/point.txt", "r")
+    #file_data = open("/home/nanako/nanako.pythonanywhere.com/point.txt", "r")
+    file_data = open("point.txt", "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
     MeetToPoint = []
@@ -138,25 +141,26 @@ def map(request, pk):
         rn.append(r.route)
 
     route = []
-    Routemarks = FileRead("/home/nanako/nanako.pythonanywhere.com/route.txt")
+    Routemarks = FileRead("route.txt")
 
     for land in Routemarks:
         for i in rn:
             if i == land[0]:
                 route.append(land[1])
 
+    print(route)
     landmark = "なし"
     if group.destination:
         dest = True
         if group.landmark != -1:
             mark = group.landmark
-            Landmarks = FileRead("/home/nanako/nanako.pythonanywhere.com/landmark.txt")
+            Landmarks = FileRead("landmark.txt")
             for land in Landmarks:
                 if mark == land[0]:
                     landmark = land[1]
         else:
             mark = group.exitmark
-            Exitmarks = FileRead("/home/nanako/nanako.pythonanywhere.com/exit.txt")
+            Exitmarks = FileRead("exit.txt")
             for land in Exitmarks:
                 if mark == land[0]:
                     landmark = land[1]

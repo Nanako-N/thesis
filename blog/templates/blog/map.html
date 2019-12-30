@@ -5,41 +5,44 @@
 {% load static %}
 
 {% block content %}
-<p>
-  <a href="{% url 'add_route' group.pk %}">追加</a>
-</p>
+<div class="text1">
+  <p>
+    <a href="{% url 'add_route' group.pk %}">>路線選択</a>
+  </p>
 
-<p>
-  グループ番号: {{ group.pk }}<br>
-  目的地: {{ landmark }}<br>
-  最適な待ち合わせ場所： {{ meet.0 }}<br>
-</p>
+  <p>
+    グループ番号: {{ group.pk }}<br>
+    最適な待ち合わせ場所： {{ meet.0 }}<br>
+  </p>
 
-<p>
-  {% for r in route %}
-  路線: {{ r }} <br>
-  {% endfor %}
-</p>
+  <p>
+    {% for r in route %}
+    路線: {{ r }} <br>
+    {% endfor %}
+  </p>
+</div>
 
-<p class="maru"><span>1</span></p>: 西武新宿駅　　　　　　
-<p class="maru"><span>2</span></p>: 都営大江戸線　新宿西口駅　
-<p class="maru"><span>3</span></p>: 都営大江戸線　新宿駅<br><br>
-<p class="maru"><span>4</span></p>: 副都心線　新宿三丁目駅
-<p class="maru"><span>5</span></p>: 丸ノ内線　新宿駅　　　　　
-<p class="maru"><span>6</span></p>: 丸ノ内線　新宿三丁目駅<br><br>
-<p class="maru"><span>7</span></p>: 都営新宿線　新宿駅　　
-<p class="maru"><span>8</span></p>: 都営新宿線　新宿三丁目駅　
-<p class="maru"><span>9</span></p>: JR線　新宿駅<br><br>
-<p class="maru"><span>10</span></p>: 京王線　新宿駅　　　　
-<p class="maru"><span>11</span></p>: 京王新線　新宿駅　　　　　
-<p class="maru"><span>12</span></p>: 小田急線　新宿駅<br><br>
+  <p class="maru"><span>1</span></p>: 西武新宿駅　　　　　　
+  <p class="maru"><span>2</span></p>: 都営大江戸線　新宿西口駅　
+  <p class="maru"><span>3</span></p>: 都営大江戸線　新宿駅<br>
+  <p class="maru"><span>4</span></p>: 副都心線　新宿三丁目駅
+  <p class="maru"><span>5</span></p>: 丸ノ内線　新宿駅　　　　　
+  <p class="maru"><span>6</span></p>: 丸ノ内線　新宿三丁目駅<br>
+  <p class="maru"><span>7</span></p>: 都営新宿線　新宿駅　　
+  <p class="maru"><span>8</span></p>: 都営新宿線　新宿三丁目駅　
+  <p class="maru"><span>9</span></p>: JR線　新宿駅<br>
+  <p class="maru"><span>10</span></p>: 京王線　新宿駅　　　　
+  <p class="maru"><span>11</span></p>: 京王新線　新宿駅　　　　　
+  <p class="maru"><span>12</span></p>: 小田急線　新宿駅<br>
 
-<img src="{% static "img/icon/gate.png"%}"/ style="padding-bottom: 2px">:改札　　
-<img src="{% static "img/icon/stairs.png"%}"/ style="padding-bottom: 2px"> :階段　　
-<img src="{% static "img/icon/escalator.png"%}"/ style="padding-bottom: 2px"> :エスカレーター　
-<img src="{% static "img/icon/elevator.png"%}"/ style="padding-bottom: 2px"> :エレベーター　
-<img src="{% static "img/icon/police.png"%}"/ style="padding-bottom: 2px"> :警察　
-<br><br>
+  <img src="{% static "img/icon/gate.png"%}"/ style="padding-bottom: 2px">:改札　　
+  <img src="{% static "img/icon/stairs.png"%}"/ style="padding-bottom: 2px"> :階段　　
+  <img src="{% static "img/icon/escalator.png"%}"/ style="padding-bottom: 2px"> :エスカレーター　
+  <img src="{% static "img/icon/elevator.png"%}"/ style="padding-bottom: 2px"> :エレベーター　
+  <img src="{% static "img/icon/police.png"%}"/ style="padding-bottom: 2px"> :警察　
+  <img src="{% static "img/icon/toilet.png"%}"/ style="padding-bottom: 2px"> :トイレ
+  <br><br>
+
 
 <style>
   .maru{
@@ -169,8 +172,8 @@
           case 0:
             {% for r in routes %}
               if (result[i][0] == {{ r.route }} - 0) {
-                markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}).bindPopup({{ r.route }}));
-                markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}).bindPopup({{ r.route }}));
+                markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}));
+                markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}));
                 break;
               }
             {% endfor %}
@@ -215,7 +218,7 @@
       if (result[i][0] == markList2[a]) {
         imgsrc = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         popup.setContent(imgsrc);
-        markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(result[i][0]));
+        markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
         break;
       }
     }
