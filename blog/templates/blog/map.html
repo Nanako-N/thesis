@@ -12,7 +12,6 @@
 
   <p>
     グループ番号: {{ group.pk }}<br>
-    最適な待ち合わせ場所： {{ meet.0 }}<br>
   </p>
 
   <p>
@@ -195,29 +194,36 @@
             //markerList_all.addLayer(L.marker([result[i][1], result[i][2]], {title: result[i][0], icon: greenIcon}).bindPopup(result[i][0]));
             break;
           default:
-            markerList_all.addLayer(L.marker([result[i][1], result[i][2]], {title: result[i][0]}).bindPopup(result[i][0]));
+            markerList_all.addLayer(L.marker([result[i][1], result[i][2]], {title: result[i][0]}));
             break;
         }
     }
   }
 
 
-  var imgsrc = "";
-  var popup = L.popup({ maxWidth:650, maxHeight:650 });
+  var content = "";
+  var popup = L.popup({ maxWidth:800, maxHeight:800 });
   function search_and_add(i) {
     for (var a=0; a<markList1.length; a++) {
       if (result[i][0] == markList1[a]) {
-        console.log(result[i][0]);
-        imgsrc = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
-        popup.setContent(imgsrc);
+        if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
+          content = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+        } else  {
+          content = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+        }
+        popup.setContent(content);
         markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
         break;
       }
     }
     for (var a=0; a<markList2.length; a++) {
       if (result[i][0] == markList2[a]) {
-        imgsrc = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
-        popup.setContent(imgsrc);
+        if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
+          content = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+        } else  {
+          content = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+        }
+        popup.setContent(content);
         markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
         break;
       }
