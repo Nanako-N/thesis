@@ -12,6 +12,7 @@
 
   <p>
     グループ番号: {{ group.pk }}<br>
+    場所: {{ meet }}
   </p>
 
   <p>
@@ -209,7 +210,7 @@
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
           content = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
-          content = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+          content = "画像なし";
         }
         popup.setContent(content);
         markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
@@ -221,7 +222,7 @@
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
           content = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
-          content = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+          content = "画像なし";
         }
         popup.setContent(content);
         markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
