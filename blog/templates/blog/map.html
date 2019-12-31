@@ -68,6 +68,7 @@
   <button type="button" onclick="changeMeetPoint(2)" style="width:100px;height:80px"><font size="5">案2</font></button>
 </p>
 
+
 <p>
   <button type="button" onclick="changeLayer('/1F')" style="width:100px;height:80px"><font size="5">地上階</font></button>
   <button type="button" onclick="changeLayer('/B1')" style="width:100px;height:80px"><font size="5">B1</font></button>
@@ -176,8 +177,9 @@
           case 0:
             {% for r in routes %}
               if (result[i][0] == {{ r.route }} - 0) {
-                markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}));
-                markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}));
+                //markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}));
+                //markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: blueIcon}));
+                L.marker([result[i][1], result[i][2]], {icon: blueIcon}).addTo(map);
                 break;
               }
             {% endfor %}
@@ -205,11 +207,7 @@
   }
 
 
-  //var content1 = "";
-  //var content2 = "";
-  var list_notFG = [];
-  var popup = L.popup({ maxWidth:800, maxHeight:800 });
-  var popup2 = L.popup({ maxWidth:800, maxHeight:800 });
+  //------マーカーのグループ分け作業用関数 アンケート時は案1の待ち合わせ場所のみを調べる。
   function search_and_add(i) {
     for (var a=0; a<markList1.length; a++) {
       if (result[i][0] == markList1[a]) {
@@ -217,37 +215,36 @@
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
           content1 = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
-          content1 = "画像なし";
+          content1 = result[i][4] + "<br>画像はありません";
         }
+        var popup = L.popup({ maxWidth:800, maxHeight:800 });
         popup.setContent(content1);
-        pointList_idea1.push([result[i][1], result[i][2], content1]);
-        var mark = new L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup);
-        markerList_idea1.addLayer(mark);
-        //markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup).openPopup());
+        markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup).openPopup());
         break;
       }
     }
+
     for (var a=0; a<markList2.length; a++) {
       if (result[i][0] == markList2[a]) {
         var content2 = "";
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
           content2 = result[i][4]+"<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
-          content2 = "画像なし";
+          content2 = result[i][4] + "<br>画像はありません";
         }
+        var popup2 = L.popup({ maxWidth:800, maxHeight:800 });
         popup2.setContent(content2);
-        var mark2 = L.marker([result[i][1], result[i][2]], {icon: hereIcon}).addTo(map).bindPopup(popup2);
-        //mark2.addTo(markerList_idea2);
+        markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup).openPopup());
         break;
       }
     }
   }
 
-  //上記の関数を読み込んだ後でgetCSV関数を呼び出して処理実行。
+
+  //上の方に書いてあるgetCSV関数を呼び出して処理実行。
   getCSV();
 
   map.addLayer(markerList_idea1);
-  //map.addLayer(markerList_idea2.openPopup());
 
   //タイル差し替え関数
   function changeLayer(place) {
