@@ -208,7 +208,7 @@
     for (var a=0; a<markList1.length; a++) {
       if (result[i][0] == markList1[a]) {
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
-          content = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+          content = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
           content = "画像なし";
         }
