@@ -145,9 +145,14 @@
 
   //全ノード番号と座標データを格納するリスト
   var result = [];
+
+  //案1と2の待ち合わせ場所ノード番号をそれぞれ格納
   var markList1 = {{ meet.0 }};
   var markList2 = {{ meet.1 }};
-  var idx = 0;
+
+  //案1と2の待ち合わせ場所の[y座標, x座標, 画像のソース, 階層]の欲張りセットを格納する。
+  var pointList_idea1 = [];
+  var pointList_idea2 = [];
 
 
   function getCSV(){
@@ -195,37 +200,45 @@
             //markerList_all.addLayer(L.marker([result[i][1], result[i][2]], {title: result[i][0], icon: greenIcon}).bindPopup(result[i][0]));
             break;
           default:
-            markerList_all.addLayer(L.marker([result[i][1], result[i][2]], {title: result[i][0]}));
             break;
         }
     }
   }
 
 
-  var content = "";
+  //var content1 = "";
+  //var content2 = "";
+  var list_notFG = [];
   var popup = L.popup({ maxWidth:800, maxHeight:800 });
+  var popup2 = L.popup({ maxWidth:800, maxHeight:800 });
   function search_and_add(i) {
     for (var a=0; a<markList1.length; a++) {
       if (result[i][0] == markList1[a]) {
+        var content1 = "";
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
-          content = "<img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+          content1 = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
-          content = "画像なし";
+          content1 = "画像なし";
         }
-        popup.setContent(content);
-        markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
+        popup.setContent(content1);
+        pointList_idea1.push([result[i][1], result[i][2], content1]);
+        var mark = new L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup);
+        markerList_idea1.addLayer(mark);
+        //markerList_idea1.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup).openPopup());
         break;
       }
     }
     for (var a=0; a<markList2.length; a++) {
       if (result[i][0] == markList2[a]) {
+        var content2 = "";
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
-          content = result[i][4] + "<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
+          content2 = result[i][4]+"<br><img src='{% static 'img/point/' %}" + result[i][0] + ".jpg'>";
         } else  {
-          content = "画像なし";
+          content2 = "画像なし";
         }
-        popup.setContent(content);
-        markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup));
+        popup2.setContent(content2);
+        var mark2 = L.marker([result[i][1], result[i][2]], {icon: hereIcon}).addTo(map).bindPopup(popup2);
+        //mark2.addTo(markerList_idea2);
         break;
       }
     }
@@ -234,7 +247,7 @@
   //上記の関数を読み込んだ後でgetCSV関数を呼び出して処理実行。
   getCSV();
 
-  map.addLayer(markerList_idea1.openPopup());
+  map.addLayer(markerList_idea1);
   //map.addLayer(markerList_idea2.openPopup());
 
   //タイル差し替え関数
