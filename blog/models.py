@@ -23,8 +23,8 @@ class Cafe(models.Model):
 
 def FileRead(t):
     #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/" + t, "r")
-    #file_data = open(t, "r")
+    #file_data = open("/home/nanako/nanako.pythonanywhere.com/" + t, "r")
+    file_data = open(t, "r")
     firstline = True
     #読み込んだファイルを1行ずつ表示
     exit = []
@@ -48,8 +48,8 @@ class Group(models.Model):
     people = models.IntegerField(choices=NumberOfPeople)
     destination = models.BooleanField(choices=DESTINATION, default=False)
 #文字を格納する
-    landmark = models.IntegerField(choices=Landmark,default=0)
-    exitmark = models.IntegerField(choices=Exit,default=0)
+    landmark = models.IntegerField(choices=Landmark, default=-1)
+    exitmark = models.IntegerField(choices=Exit, default=-1)
 
 
     def __str__(self):
@@ -65,7 +65,7 @@ class Group(models.Model):
 Route = FileRead("route.txt");
 class Route(models.Model):
     number = models.CharField(max_length=100)
-    route = models.IntegerField(choices=Route)
+    route = models.IntegerField(choices=Route, default=-1)
 
     def __str__(self):
         return self.number
