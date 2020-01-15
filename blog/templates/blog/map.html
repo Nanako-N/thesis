@@ -126,10 +126,10 @@
     iconRetinaUrl: "{% static 'img/icon' %}" + '/blue_2x.png',
   });
   var pathIcon = L.icon({
-    iconUrl: "{% static 'img/icon' %}" + '/yellow-3.png',
+    iconUrl: "{% static 'img/icon' %}" + '/nakadake.png',
     iconSize: [18,18],
     iconAnchor: [9,9],
-    iconRetinaUrl: "{% static 'img/icon' %}" + '/yellow-3.png',
+    iconRetinaUrl: "{% static 'img/icon' %}" + '/nakadake.png',
   });
   var hereIcon = L.icon({
     iconUrl: "{% static 'img/icon' %}" + '/hereIcon.png',
@@ -174,7 +174,7 @@
             {% endfor %}
             break;
           case 1: //改札ノードの場合
-            search_and_add(i);
+            search_and_add_other(i);
             break;
           case 2: //出口ノードの場合
             search_and_add(i);
@@ -199,7 +199,7 @@
       if (result[i][0] == markList2[a]) {
         var content1 = "";
         if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
-          content1 = result[i][4] + "<br><img src='{% static 'img/point/pointImg_name/' %}" + result[i][0] + ".png'>";
+          content1 = "<img src='{% static 'img/point/pointImg_name/' %}" + result[i][0] + ".png'>";
         } else {
           content1 = result[i][0] + "画像はありません。";
         }

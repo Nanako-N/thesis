@@ -136,7 +136,7 @@ def Destination(route_map, nTown, src, dst, lineNum):
 
     #路線重複なしの時(バラバラ)
     for n in range(lineNum):
-        from_kaisatu_to_dst = sys.maxsize 
+        from_kaisatu_to_dst = sys.maxsize
         for i in src[n][1]:
             d, v = solve(route_map, nTown, i, dst)
             print(str(i)+"からの距離 : "+str(d))
@@ -193,7 +193,8 @@ def noDestination(route_map, nTown, src, lineNum):
     if src[0][0]!=1: #重複している
         if lineNum==1: #全員が同じ路線の時→改札を返す
             for i in src[0][1]:
-                onemeet.append(i)
+                #onemeet.append(i)
+                onmeet = i
                 kaisatu.append(i)
                 onepathlist.append([i])
             meet.append(onemeet)
@@ -224,7 +225,7 @@ def noDestination(route_map, nTown, src, lineNum):
                 onepathlist.append(getPath(path[index],v))
                 meet.append(path[index])
                 return (meet,kaisatu,onepathlist)
-            
+
             for i in src[0][1]:
                 for j in src[1][1]:
                     d,v = solve(route_map, nTown, i, j)
@@ -347,7 +348,7 @@ def noDestination(route_map, nTown, src, lineNum):
         print("distance: "+str(maindis)+" half: "+str(half))
         meet.append(path[index])
         return (meet,kaisatu,onepathlist)
-    
+
     onepathlist.append(getPath(goal,mainvia))
     for n in range(len(other)):
         mindis = sys.maxsize #otherそれぞれのmeetへの最短距離
