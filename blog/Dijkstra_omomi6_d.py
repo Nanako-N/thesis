@@ -23,8 +23,8 @@ def answer(route_map, nTown, src, dst, dest):
 
 
     #路線が同じ人数を計算
-    for n in range(num):
-        line[src[n]] = line[src[n]] +1
+    for n in src:
+        line[n] = line[n] +1
     print("line: "+str(line))
 
     #各路線の人数と改札を保持した配列を作成

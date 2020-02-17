@@ -47,43 +47,18 @@ def select(request):
 
 
 
-def FileRead(t):
+def read_file(file_name):
     #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/" + t, "r")
-    #file_data = open(t, "r")
+    #file_data = open("/home/nanako/nanako.pythonanywhere.com/" + file_name, "r")
+    file_data = open(file_name, "r")
     firstline = True
-    #読み込んだファイルを1行ずつ表示
-    exit = []
+    data = []
     for line in file_data:
-        data = line.split(' ')#空白文字で区切る
-        userval = str(data[0])#データベースに入れる値
-        dbval = int(data[1])#ユーザーが見る値
-        exit.append([dbval, userval])#出口
-    #開いたファイルを閉じる
+        line_each = line.split(' ')
+        data.append(line_each)
     file_data.close()
-    return(exit)
+    return(data)
 
-
-"""
-改札場合わけのためのファイル読み込み
-startrout.txtを読み込む
-"""
-def GateFileRead():
-    #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/startroute.txt", "r")
-    #file_data = open("startroute.txt", "r")
-    firstline = True
-    #読み込んだファイルを1行ずつ表示
-    StationSize = []
-    for line in file_data:
-        data = line.split(' ')#空白文字で区切る
-        station = int(data[0])#駅のノード
-        gate = int(data[1])#改札のノード
-        dis = int(data[2])#駅から改札までの距離
-        StationSize.append([station, gate, dis])#各駅の改札までの距離情報
-    #開いたファイルを閉じる
-    file_data.close()
-    return(StationSize)
 
 
 """
@@ -91,18 +66,7 @@ def GateFileRead():
 """
 def point(meet_node):
     #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/point.txt", "r")
-    #file_data = open("point.txt", "r")
-    firstline = True
-    #読み込んだファイルを1行ずつ表示
-    MeetToPoint = []
-    for line in file_data:
-        data = line.split(' ')#空白文字で区切る
-        meet = int(data[0])#駅のノード
-        point = int(data[1])#改札のノード
-        MeetToPoint.append([meet,point])#各駅の改札までの距離情報
-    #開いたファイルを閉じる
-    file_data.close()
+    MeetToPoint = read_file("point.txt")
     #pの初期値
     p = []
     #meetの情報をpointに変換
@@ -110,8 +74,8 @@ def point(meet_node):
     for m in meet_node:
         pp = -1
         for item in MeetToPoint:
-            if item[0] == m: #待ち合わせポイントがある時
-                pp = item[1]#待ち合わせ場所
+            if int(item[0]) == m: #待ち合わせポイントがある時
+                pp = int(item[1])#待ち合わせ場所
         if pp == -1: #待ち合わせポイントがない時
             c.append(m)
         else:
@@ -121,29 +85,18 @@ def point(meet_node):
     return p
 
 
-    """
+"""
  改札番号を改札名に変更
 """
 def name(kaisatu):
-    #ファイルを読み込む
-    file_data = open("/home/nanako/nanako.pythonanywhere.com/kaisatu.txt", "r")
-    #file_data = open("kaisatu.txt", "r")
-    firstline = True
-    #読み込んだファイルを1行ずつ表示
-    KaisatuName = []
-    for line in file_data:
-        data = line.split(' ')#空白文字で区切る
-        node = int(data[0])#改札のノード
-        name = data[1]#改札名
-        KaisatuName.append([node,name])
-    #開いたファイルを閉じる
-    file_data.close()
+    #改札一覧のファイルを配列に変換する
+    KaisatuName = read_file("kaisatu.txt")
 
     #kaisatuを名前に変換
     Kname = []
     for node in kaisatu:
         for item in KaisatuName:
-            if item[0] == node:
+            if int(item[0]) == node:
                 k = item[1]
                 Kname.append([k])
     print(Kname)
@@ -178,6 +131,7 @@ def map(request, pk):
     kaisatuname = []
     routebox = []
     sort_routbox = []
+    params = {}
 
     #路線が同じ人数を計算
     rn = np.zeros(12)
@@ -193,27 +147,28 @@ def map(request, pk):
     print("sort_routebox2: "+str(sort_routebox))
 
     route = []
-    Routemarks = FileRead("route.txt")
-    for land in Routemarks:
+    all_routes = read_file("route.txt")
+    for r in all_routes:
         for n in range(len(sort_routebox)):
-            if sort_routebox[n][1] == land[0]:
-                route.extend([[land[1],sort_routebox[n][0]]])
+            if sort_routebox[n][1] == int(r[1]):
+                print("ok!")
+                route.extend([[r[0],sort_routebox[n][0]]])
 
     landmark = "なし"
     if group.destination:
         dest = True
         if group.landmark != -1:
             mark = group.landmark
-            Landmarks = FileRead("landmark.txt")
+            Landmarks = read_file("landmark.txt")
             for land in Landmarks:
-                if mark == land[0]:
-                    landmark = land[1]
+                if mark == int(land[1]):
+                    landmark = land[0]
         else:
             mark = group.exitmark
-            Exitmarks = FileRead("exit.txt")
-            for land in Exitmarks:
-                if mark == land[0]:
-                    landmark = land[1]
+            Exitmarks = read_file("exit.txt")
+            for ext in Exitmarks:
+                if mark == int(ext[1]):
+                    landmark = ext[0]
 
     p = []#使用する駅
     for r in routes:
@@ -229,7 +184,17 @@ def map(request, pk):
         finalmeet = checker(meet2) #最終的に返す目的地の配列
         print("point利用"+str(finalmeet))
         meet = finalmeet
-    return render(request, 'blog/map.html', {'landmark': landmark,'route': route, 'group': group, 'routes': routes, 'meet': meet, 'route_gate': route_gate, 'length': length, 'pathList_near': one,})
+    params = {
+        'landmark': landmark,
+        'route': route,
+        'group': group,
+        'routes': routes,
+        'meet': meet,
+        'route_gate': route_gate,
+        'length': length,
+        'pathList_near': one,
+    }
+    return render(request, 'blog/map.html', params)
 
 
 
@@ -255,3 +220,10 @@ def add_route(request, pk):
     else:
         form = RouteForm()
         return render(request, 'blog/add_route.html', {'form': form, 'errorM': errorM})
+
+
+
+
+def edit_route(request, pk):
+    print(pk)
+    return render(request, 'blog/index.html')

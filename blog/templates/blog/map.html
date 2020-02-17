@@ -93,23 +93,23 @@
 
 
 <script>
-
   /*----------地図表示---------*/
+  //地図の宣言と設定
   var map = L.map("mapcontainer", {
-  crs: L.CRS.Simple,
-  minZoom: 0,
-  maxZoom: 2,
+    crs: L.CRS.Simple,
+    minZoom: 0,
+    maxZoom: 2,
   });
 
-  //地図の中心座標とズームレベルを指定。
-  //0が最小、2が最大ズーム
+  //地図の中心座標と初期ズームレベルを指定。
   map.setView(L.latLng(-1000/2, 1000/2), 0);
 
-  //地図を表示。(画像がある場所のパスを指定しています。この通りでないと表示できないので注意。)
+  //タイルの設定、地図上への表示。
   var tile = L.tileLayer("{% static 'nodemap2' %}" + "/1F/{z}/{x}/{y}.png", {
     tileSize: 1000,
     attribution: "<a>自作タイル</a>",
   }).addTo(map);
+
 
   /*-----ノード上にマーカーを配置する-----*/
 
@@ -143,6 +143,9 @@
 
   //待ち合わせ場所ノード番号を格納
   var markList2 = {{ meet }};
+  //meetが複数あった場合、markList2を昇順にソートすること！！
+  //markListのindex指定用カウンタ変数
+  var counter = 0;
   //途中経過ノード番号を格納
   var pathList_onePoint = {{ pathList_near }};
 
@@ -164,6 +167,9 @@
     for(var i=0;i<tmp.length;++i){
         result[i] = tmp[i].split(',');
 
+        if(result[i][0] - 0 == markList2[counter]) {
+          search_and_add(i);
+        } else {
         switch (result[i][3] - 0) {
           case 0: //路線ノードの場合
             {% for r in routes %}
@@ -173,20 +179,10 @@
               }
             {% endfor %}
             break;
-          case 1: //改札ノードの場合
-            search_and_add_other(i);
-            break;
-          case 2: //出口ノードの場合
-            search_and_add(i);
-            break;
-          case 3: //通路上ノードの場合
-            search_and_add_other(i);
-            break;
-          case 4: //待ち合わせポイントノードの場合
-            search_and_add(i);
-            break;
           default: //万が一上記以外の数字が出た場合は何もしない
+            search_and_add_other(i);
             break;
+          }
         }
     }
   }
@@ -198,10 +194,10 @@
       //console.log(result[i][0]);
       if (result[i][0] == markList2[a]) {
         var content1 = "";
-        if (result[i][0] - 0 == 213 || result[i][0] - 0 >= 1000) {
+        if (result[i][0] - 0 >= 1000) {
           content1 = "<img src='{% static 'img/point/pointImg_name/' %}" + result[i][0] + ".png'>";
         } else {
-          content1 = result[i][0] + "画像はありません。";
+          content1 = "この周辺がおすすめです";
         }
         var kaisou = result[i][4];
         if (kaisou.startsWith("B")) {
@@ -211,7 +207,6 @@
         }
         var popup = L.popup({ maxWidth:800, maxHeight:800 });
         popup.setContent(content1);
-        //L.marker([result[i][1], result[i][2]], {icon: hereIcon}).addTo(map).bindPopup(popup);
         markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: hereIcon}).bindPopup(popup).openPopup());
         break;
       }
@@ -219,11 +214,9 @@
   }
 
   function search_and_add_other(i) {
-    //console.log(">>" + result[i][0]);
     for(var idx = 0; idx < pathList_onePoint.length; idx++) {
       for (var a = 0; a < pathList_onePoint[idx].length; a++) {
         if (result[i][0] == pathList_onePoint[idx][a]) {
-          //L.marker([result[i][1], result[i][2]], {icon: pathIcon}).addTo(map)
           markerList_idea2.addLayer(L.marker([result[i][1], result[i][2]], {icon: pathIcon}));
           break;
         }
