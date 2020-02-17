@@ -49,8 +49,8 @@ def select(request):
 
 def read_file(file_name):
     #ファイルを読み込む
-    #file_data = open("/home/nanako/nanako.pythonanywhere.com/" + file_name, "r")
-    file_data = open(file_name, "r")
+    file_data = open("/home/nanako/nanako.pythonanywhere.com/" + file_name, "r")
+    #file_data = open(file_name, "r")
     firstline = True
     data = []
     for line in file_data:
